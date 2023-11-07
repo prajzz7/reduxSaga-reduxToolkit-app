@@ -1,12 +1,12 @@
 import {takeEvery, call, put} from 'redux-saga/effects'
+import { fetchCats, fetchCatsSuccess } from './catState'
 
 
 function* catsWorker(){
-    console.log('working')
-    // yield put(fetchCats)
     const cats = yield call(()=>fetch('https://api.thecatapi.com/v1/breeds'))
     const catsData = yield cats.json()
     console.log(catsData)
+    yield put(fetchCatsSuccess(catsData))
 }
 
 export default function* catSaga(){
